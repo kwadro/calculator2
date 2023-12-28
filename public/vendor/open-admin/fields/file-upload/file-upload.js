@@ -80,7 +80,6 @@ class FileUpload {
         element.addEventListener("change",function(event){
 
             Array.from(event.target.files).forEach(file => {
-
                 let fileInfo = ref.getFileInfoFromName("new/"+file.name);
                 fileInfo.uploading = true;
 
@@ -88,11 +87,10 @@ class FileUpload {
                 if (!ref.hasCard || ref.multiple){
                     img = ref.createCard(fileInfo);
                 }
-                if (fileInfo.type == "image"){
+                if (fileInfo.type === "image"){
                     if (ref.hasCard && !ref.multiple){
                         img = ref.holder.querySelector(".preview");
                     }
-                    //console.log(file);
                     img.src = URL.createObjectURL(file);
                     img.onload = function() {
                         URL.revokeObjectURL(img.src) // free memory
@@ -327,7 +325,8 @@ class FileUpload {
             let files = (new String(ref.input.dataset.files)).split(',');
             files.forEach(file =>{
                 let fileInfo = this.getFileInfoFromName(file);
-                ref.createCard(fileInfo, this.options.storageUrl+file);
+                const createCardImageUrl = (file.indexOf("http") > -1) ? file : this.options.storageUrl + file;
+                ref.createCard(fileInfo, createCardImageUrl);
             })
         }
     }

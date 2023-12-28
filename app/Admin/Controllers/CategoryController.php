@@ -3,8 +3,9 @@
 namespace App\Admin\Controllers;
 
 use App\Models\Category;
-use App\Models\Product;
 use OpenAdmin\Admin\Controllers\AdminController;
+use OpenAdmin\Admin\Controllers\HasResourceActions;
+
 use OpenAdmin\Admin\Facades\Admin;
 use OpenAdmin\Admin\Form;
 use OpenAdmin\Admin\Layout\Content;
@@ -12,7 +13,7 @@ use OpenAdmin\Admin\Show;
 
 class CategoryController extends AdminController
 {
-
+    use HasResourceActions;
     public function index(Content $content)
     {
         return Admin::content(function (Content $content) {
@@ -38,7 +39,7 @@ class CategoryController extends AdminController
         $form = new Form(new Category());
 
         $form->text('title', __('Title'));
-        $form->select('parent_id', __("Category"))->options(Category::all()->pluck('title', 'id'));
+        $form->select('parent_id', __("Category"))->options(Category::selectOptions());
         $form->number('order', __('Order'));
 
         return $form;

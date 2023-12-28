@@ -182,7 +182,7 @@ return [
 
         // User tables and model.
         'users_table' => 'admin_users',
-        'users_model' => OpenAdmin\Admin\Auth\Database\Administrator::class,
+        'users_model' => App\Admin\Auth\Database\Administrator::class,
 
         // Role table and model.
         'roles_table' => 'admin_roles',
