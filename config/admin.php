@@ -374,7 +374,7 @@ return [
     | Enable/Disable user_panel in sidebar
     |--------------------------------------------------------------------------
     */
-    'enable_user_panel' => false,
+    'enable_user_panel' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -410,6 +410,17 @@ return [
     |
     */
     'extensions' => [
+        'ckeditor' => [
 
+            //Set to false if you want to disable this extension
+            'enable' => true,
+
+            // Editor configuration
+            'config' => [
+                'language'      => 'en',
+                'height'        => 500,
+                'contentsCss'   => '/css/frontend-body-content.css',
+            ]
+        ]
     ],
 ];

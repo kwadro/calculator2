@@ -37,9 +37,9 @@ class ProductController extends AdminController
         $grid->category(__('Category'))->display(function ($category) {
             return ($category ? Category::find($category)->title : null);
         });
-        $grid->column('description', __('Description'));
-        $grid->column('image', __('Image'))->image('',100,100);
-        $grid->column('created_at', __('Created at'));
+        //$grid->column('url', __('Description'));
+        $grid->column('image', __('Image'))->image('',75,75);
+        //$grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
         $grid->filter(function ($filter) {
             $filter->between('created_at', 'Created Time')->datetime();
@@ -66,6 +66,7 @@ class ProductController extends AdminController
         $show->field('name', __('Name'));
         $show->field('price', __('Price'));
         $show->field('category', __('Category'));
+        $show->field('url', __('Url'));
         $show->field('description', __('Description'));
         $show->field('image', __('Image'))->image();
         $show->field('created_at', __('Created at'));
@@ -86,6 +87,7 @@ class ProductController extends AdminController
         $form->text('name', __('Name'));
         $form->decimal('price', __('Price'));
         $form->select('category', __("Category"))->options(Category::all()->pluck('title', 'id'));
+        $form->text('url', __('Url'));
         $form->textarea('description', __('Description'));
         $form->image('image', __('Image'));
 

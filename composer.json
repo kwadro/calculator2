@@ -11,6 +11,8 @@
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
+        "laravel/ui": "^4.3",
+        "open-admin-ext/ckeditor": "1.0.2",
         "open-admin-ext/helpers": "^1.0",
         "open-admin-org/open-admin": "^1.0"
     },

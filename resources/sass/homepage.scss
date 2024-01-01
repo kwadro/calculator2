@@ -1,0 +1,39 @@
+h1.header{
+    margin-bottom: 1rem;
+}
+.column.active{
+    background-color: white;
+}
+.column{
+    background-color: lightgray;
+}
+.list {
+    list-style-type:none;
+    a {
+        text-decoration: none;
+        //text-transform: uppercase;
+    }
+    li a{
+        font-size: 16px;
+        color: black;
+        &:hover{
+            font-weight: 700;
+        }
+        &.active{
+           color: darkblue;
+           font-weight: 700;
+        }
+    }
+}
+#app .title button.btn.collapsed:before
+{
+    content:'+' ;
+    display:block;
+    width:15px;
+}
+#app .title button.btn:before
+{
+    content:'-' ;
+    display:block;
+    width:15px;
+}

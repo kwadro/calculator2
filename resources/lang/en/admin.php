@@ -1,6 +1,22 @@
 <?php
 
 return [
+    'recipe_list_title'     => 'Всі рецепти від',
+    'author'                => 'author',
+    'cooking_time_measure'  => 'min',
+    'cooking_time'          => 'Time for cooking',
+    'category'              => 'category',
+    'new_item'              => 'new',
+    'archive'               => 'Archive',
+    'recalculate'           => 'recalculate',
+    'calculate'             => 'calculate',
+    'list_of_products'      => 'List of products',
+    'сalculation_festive'   => 'Calculation festive',
+    'new_festive'           => 'New Festive',
+    'lib_calc'              => 'Library Calculation list',
+    'your_calc'             => 'Your Calculation list',
+    'base_info'             => 'Base info',
+    'select_recipes'        => 'Select recipes',
     'online'                => 'Online',
     'login'                 => 'Login',
     'logout'                => 'Logout',

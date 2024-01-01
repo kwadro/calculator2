@@ -4,6 +4,7 @@ namespace App\Admin\Controllers;
 
 use App\Models\Measure;
 use App\Models\Product;
+use App\Models\Recipeauthor;
 use App\Models\Recipetype;
 use OpenAdmin\Admin\Controllers\AdminController;
 use OpenAdmin\Admin\Form;
@@ -31,6 +32,7 @@ class RecipeController extends AdminController
 
         $grid->column('id', __('Id'));
         $grid->column('name', __('Name'));
+        $grid->column('image', __('Image'))->image('', 100, 100);
         $grid->type(__('Type'))->display(function ($type) {
             return ($type ? Recipetype::find($type)->title : null);
         });
@@ -68,23 +70,23 @@ class RecipeController extends AdminController
     {
         $form = new Form(new Recipe());
         $form->tab('Basic info', function ($form) {
+            $form->select('author', __("Author"))->options(Recipeauthor::all()->pluck('title', 'id'));
             $form->select('type', __("Type"))->options(Recipetype::all()->pluck('title', 'id'));
             $form->text('name', __('Name'));
-            $form->text('description', __('Description'));
+            $form->textarea('description', __('Description'));
+            $form->image('image', __('Image'));
+        })->tab('Serving setting', function ($form) {
+            $form->decimal('weight', __('Weight'));
+            $form->number('count_serving', __('Serving count'));
+            $form->number('cook_time', __('Time Cooking (min)'));
         })->tab('Products', function ($form) {
-            $form->hasMany('components', 'Products', function (Form\NestedForm $form) {
-                $form->select('product_id', __("Product id"))->options(Product::all()->pluck('name', 'id'));
-                $form->decimal('qty', __('Qty'));
-                $form->select('measure_id', __("Measure"))->options(Measure::all()->pluck('title', 'id'));
-                $form->text('description', __('Description'));
+                $form->hasMany('components', 'Products', function (Form\NestedForm $form) {
+                    $form->select('product_id', __("Product id"))->options(Product::all()->pluck('name', 'id'));
+                    $form->decimal('qty', __('Qty'));
+                    $form->select('measure_id', __("Measure"))->options(Measure::all()->pluck('title', 'id'));
+                    $form->text('description', __('Description'));
+                });
             });
-        });
-//->tab('Image', function ($form) {
-//
-//            $form->image('thumbnail');
-//            $form->multipleImage('images', __('Images'));
-//
-//        });
-        return $form;
+            return $form;
     }
 }

@@ -1,6 +1,23 @@
 <?php
 
 return [
+    'author'                => 'Автор',
+    'recipe_type_list_title'=> 'Всі рецепти  в категорії',
+    'recipe_list_title'     => 'Всі рецепти від',
+    'cooking_time_measure'  => 'хв',
+    'cooking_time'          => 'Час  приготування',
+    'category'              => 'Категорія',
+    'new_item'              => 'новий',
+    'archive'               => 'Архів розрахунків',
+    'recalculate'           => 'Перерахувати',
+    'calculate'             => 'Розрахувати',
+    'list_of_products'      => 'Список продуктів',
+    'сalculation_festive'   => 'Розрахунок для свята',
+    'new_festive'           => 'Нове святкування',
+    'lib_calc'              => 'Шаблони розрахунків',
+    'your_calc'             => 'Ваші розрахунки',
+    'base_info'             => 'Базова інформація',
+    'select_recipes'        => 'Вибір страв',
     'online'                => 'В мережі',
     'login'                 => 'Увійти',
     'logout'                => 'Вийти',

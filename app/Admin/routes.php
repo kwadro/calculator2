@@ -6,6 +6,7 @@ use App\Admin\Controllers\FectiverecipeController;
 use App\Admin\Controllers\FestiveController;
 use App\Admin\Controllers\MeasureController;
 use App\Admin\Controllers\ProductController;
+use App\Admin\Controllers\RecipeauthorController;
 use App\Admin\Controllers\RecipeController;
 use App\Admin\Controllers\RecipetypeController;
 use Illuminate\Routing\Router;
@@ -28,4 +29,4 @@ Route::group([
     $router->resource('recipetypes', RecipetypeController::class);
     $router->resource('festive', FestiveController::class);
     $router->resource('fectiverecipe', FectiverecipeController::class);
-});
+    $router->resource('recipeauthors', RecipeauthorController::class);});
