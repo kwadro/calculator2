@@ -10,3 +10,6 @@ php artisan cache:clear
 php artisan migrate:rollback --step=1
 php artisan make:migration add_count_serving_to_recipe_table --table=recipe
 php artisan make:controller
+npm install
+npm run dev
+php artisan make:migration add_image_to_recipe_table --table=recipetype

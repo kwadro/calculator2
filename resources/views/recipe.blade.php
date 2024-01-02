@@ -32,7 +32,7 @@
         </div>
     </div>
     <div class="container">
-        <ul class="row">
+        <div class="row">
             <div class="col-md-6 col-sm-6 col-xs-12 mt-2">
                 <img width="100%" src="/uploads/{{$recipe->image}}" alt="{{$recipe->name}}"/>
             </div>

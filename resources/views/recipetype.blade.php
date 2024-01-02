@@ -1,13 +1,14 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="title text-center  mb-2 px-4 py-2">
-                <span class="text-uppercase fs-3 fw-bold">{{ __('admin.recipe_type_list_title') }} {{__($recipes[0]->getRecipeType())}}</span>
+    @if(isset($recipes) && count($recipes)>0)
+        <div class="container">
+            <div class="row">
+                <div class="title text-center  mb-2 px-4 py-2">
+                    <span class="text-uppercase fs-3 fw-bold">{{ __('admin.recipe_type_list_title') }} {{__($recipes[0]->getRecipeType())}}</span>
+                </div>
             </div>
         </div>
-    </div>
-    @if(isset($recipes))
+
         <div class="container">
             <div class="row">
                 @for($i=0;$i<count($recipes);$i++)
@@ -20,6 +21,19 @@
                          </a>
                      </div>
                 @endfor
+            </div>
+        </div>
+    @else
+        <div class="container">
+            <div class="row">
+                <div class="title text-center  mb-2 px-4 py-2">
+                    <span class="text-uppercase fs-3 fw-bold">{{ __('admin.recipe_type_list_title') }} {{__($type->title)}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                {{__('admin.recipe_not_found')}}
             </div>
         </div>
     @endif

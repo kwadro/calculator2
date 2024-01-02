@@ -28,6 +28,7 @@ class RecipetypeController extends AdminController
 
         $grid->column('id', __('Id'));
         $grid->column('title', __('Title'));
+        $grid->column('image', __('Image'))->image('', 100, 100);
         $grid->column('description', __('Description'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
@@ -64,6 +65,7 @@ class RecipetypeController extends AdminController
         $form = new Form(new Recipetype());
 
         $form->text('title', __('Title'));
+        $form->image('image', __('Image'));
         $form->text('description', __('Description'));
 
         return $form;

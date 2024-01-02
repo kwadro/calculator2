@@ -1,6 +1,14 @@
 <?php
 
 return [
+    'recipe_not_found'      => 'recipe_not_found',
+    'contact_title'         => 'contact_title',
+    'app_title'             => 'app_title',
+    'recipe_authors_title'  => 'Authors recipes',
+    'recipe_types_title'    => 'Types recipes',
+    'home_page_link'        => 'Home',
+    'contact_link'          => 'Сontact',
+    'recipes_link'          => 'Recipes',
     'recipe_list_title'     => 'Всі рецепти від',
     'author'                => 'author',
     'cooking_time_measure'  => 'min',

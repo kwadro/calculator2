@@ -1,6 +1,14 @@
 <?php
 
 return [
+    'recipe_not_found'      => 'Нічого не знайдено',
+    'contact_title'         => 'Контакт',
+    'app_title'             => 'Калькулятор для рецептів',
+    'recipe_authors_title'  => 'Автори рецептів',
+    'recipe_types_title'    => 'Категорії рецептів',
+    'home_page_link'        => 'Головна',
+    'contact_link'          => 'Контакт',
+    'recipes_link'          => 'Рецепти',
     'author'                => 'Автор',
     'recipe_type_list_title'=> 'Всі рецепти  в категорії',
     'recipe_list_title'     => 'Всі рецепти від',
