@@ -14,8 +14,9 @@ class RecipeauthorController extends Controller
             $recipes = Recipe::all()->sortBy('title')->filter(function ($recipe) use ($author) {
                 return $recipe->author ===$author;
             });
+            $title = __('admin.recipe_list_title'). " ". __($recipes[0]->getAuthorTitle());
             if ($recipes){
-                return view('recipeauthor',['recipes'=>$recipes]);
+                return view('recipegroup',['title'=>$title,'recipes'=>$recipes]);
             }
         }
 

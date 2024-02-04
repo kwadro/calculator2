@@ -11,7 +11,7 @@
         <div class="container">
             <div class="row">
                 @foreach($typeslist as $type )
-                <a class="col-4" href="/recipetype/{{$type->id}}">
+                    <a class="col-4" href="/recipetype/{{$type->id}}">
                         @if($type->image)
                             <img src="/uploads/{{$type->image}}" alt="{{$type->title}}" width="100%" />
                         @endif
@@ -19,7 +19,7 @@
                             {{$type->title}}
                         </div>
                 </a>
-        @endforeach
+                @endforeach
             </div>
         </div>
     @endif
@@ -36,7 +36,7 @@
             @foreach($authorslist as $author )
                 <a class="col-4" href="/recipeauthor/{{$author->id}}">
                     @if($author->image)
-                            <img src="/uploads/{{$author->image}}" alt="{{$author->title}}" width="100%" />
+                        <img src="/uploads/{{$author->image}}" alt="{{$author->title}}" width="100%" />
                     @endif
                     <div class="text-center">
                         {{$author->title}}

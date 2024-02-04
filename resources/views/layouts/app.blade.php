@@ -66,6 +66,7 @@
                     </ul>
                 </div>
             </div>
+
         </nav>
 
         <div class="container-fluid">
@@ -85,7 +86,7 @@
                 </div>
             </div>
         </div>
-
     </div>
+    @yield('footer-scripts')
 </body>
 </html>

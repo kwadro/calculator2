@@ -14,12 +14,25 @@
                     <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">{{ __('admin.recipes_link') }}</span>
                 </a>
             </li>
-            <li>
-                <a href="/contact" class="nav-link px-0 align-middle">
-                    <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">{{ __('admin.contact_link') }}</span>
-                </a>
-            </li>
-        </ul>
+            @auth
+                <li>
+                    <a href="/festive" class="nav-link px-0 align-middle">
+                        <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">{{ __('admin.festives_link') }}</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/productcart" class="nav-link px-0 align-middle">
+                        <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">{{ __('admin.product_cart_link') }}</span>
+                    </a>
+                </li>
+            @endauth
+                <li>
+                    <a href="/contact" class="nav-link px-0 align-middle">
+                        <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">{{ __('admin.contact_link') }}</span>
+                    </a>
+                </li>
+            </ul>
         <hr>
     </div>
 </div>

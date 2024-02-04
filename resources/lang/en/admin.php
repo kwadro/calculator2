@@ -1,6 +1,11 @@
 <?php
 
 return [
+    'recipe_list_sub_title' => 'Selected Recipes',
+    'product_list_sub_title'=> 'Product list',
+    'add-to-cart'           => 'Add to cart',
+    'product_cart_link'     => 'product_cart_link',
+    'festives_link'         => 'festives_link',
     'recipe_not_found'      => 'recipe_not_found',
     'contact_title'         => 'contact_title',
     'app_title'             => 'app_title',

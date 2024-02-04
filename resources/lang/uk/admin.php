@@ -1,6 +1,11 @@
 <?php
 
 return [
+    'recipe_list_sub_title' => 'Вибрані рецепти',
+    'product_list_sub_title'=> 'Список продуктів',
+    'add-to-cart'           => 'Додати продукти в кошик',
+    'product_cart_link'     => 'Кошик продуктів',
+    'festives_link'         => 'Архів свят',
     'recipe_not_found'      => 'Нічого не знайдено',
     'contact_title'         => 'Контакт',
     'app_title'             => 'Калькулятор для рецептів',

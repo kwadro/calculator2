@@ -2,27 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Fectiverecipe;
 use App\Models\Festive;
 use App\Models\FestiveResult;
-use App\Models\Measure;
-use App\Models\Product;
 use App\Models\Recipe;
+use App\Models\RecipeService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class FestiveController extends Controller
 {
+    private RecipeService $recipeService;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct(
+        RecipeService $recipeService
+    ) {
         $this->middleware('auth');
+        $this->recipeService = $recipeService;
     }
 
     public function create()
@@ -42,11 +44,24 @@ class FestiveController extends Controller
         $festiveCollection = Festive::all()->filter(function ($item) use ($user) {
             return $item->user_id === $user->id;
         })->values();
-        $festiveCollectionLib = Festive::all()->filter(function ($item) use ($user) {
-            return $item->user_id === 0;
-        })->values();
-        $formFestive = Festive::find($festiveId);
         $recipesCollection = Recipe::all()->values();
+        if (!$festiveId) {
+            return view(
+                'festive',
+                [
+                    'productList' => null,
+                    'selectRecipes' => null,
+                    'recipes' => $recipesCollection,
+                    'user' => $user,
+                    'festives' => $festiveCollection,
+                    'formFestive' => null
+                ]
+            );
+        }
+
+
+        $formFestive = Festive::find($festiveId);
+
         $selectRecipes = $formFestive->recipes;
         $selectRecipesValues = [];
         foreach ($selectRecipes as $selectRecipe) {
@@ -58,13 +73,12 @@ class FestiveController extends Controller
 
         if ($recipesCollection && $formFestive && $user->id === $formFestive->user_id) {
             return view(
-                'home',
+                'festive',
                 [
                     'productList' => $productList,
                     'selectRecipes' => $selectRecipesValues,
                     'recipes' => $recipesCollection,
                     'user' => $user,
-                    'festivesLib' => $festiveCollectionLib,
                     'festives' => $festiveCollection,
                     'formFestive' => $formFestive
                 ]
@@ -111,6 +125,7 @@ class FestiveController extends Controller
         $festive->description = $request->description;
         $festive->date = $request->date;
         $festive->save();
+        $festiveId = $festive->id;
         //Toastr::success('Festive data Successfully Saved','Success');
         return redirect("/festive/$festiveId#step-1")->with('success', 'Festive data Successfully Saved');
     }
@@ -118,12 +133,14 @@ class FestiveController extends Controller
     public function saveRecipes(Request $request)
     {
         $festiveId = $request->festive_id;
+
         if ($festiveId) {
             $festive = Festive::find($festiveId);
             if ($festive) {
                 $user = Auth::user();
                 if ($user->id === $festive->user_id) {
                     $festiveRecipes = $request->recipes;
+
                     $festiveRecipesList = Fectiverecipe::all()->filter(function ($item) use ($festive) {
                         return $festive->id === $item->festive_id;
                     })->values();
@@ -145,8 +162,11 @@ class FestiveController extends Controller
                     }
                     $festive->step = 2;
                     $festive->save();
-                    $festiveId =$festive->id;
-                    return redirect("/festive/$festiveId#step-2")->with('success-2', 'Recipes in Festive data Successfully Saved');
+                    $festiveId = $festive->id;
+                    return redirect("/festive/$festiveId#step-2")->with(
+                        'success-2',
+                        'Recipes in Festive data Successfully Saved'
+                    );
                 }
             }
         }
@@ -165,7 +185,7 @@ class FestiveController extends Controller
                     $festiveResults = FestiveResult::all()->filter(function ($item) use ($user, $festive) {
                         return ($festive->id === $item->festive_id) && ($item->user_id === $user->id);
                     })->values();
-                    foreach ($festiveResults as $item){
+                    foreach ($festiveResults as $item) {
                         $item->delete();
                     }
                     // list  recipe for festive
@@ -174,47 +194,29 @@ class FestiveController extends Controller
                     })->values();
                     $result = [];
                     foreach ($festiveRecipesList as $festiveRecipe) {
-                        $components = Recipe::find($festiveRecipe->recipe_id)->components;
-                        foreach ($components as $component) {
-                            $product = Product::find($component->product_id);
-                            if (!isset($result[$product->category])) {
-                                $result[$product->category] = [];
-                            }
-                            if (!isset($result[$product->category][$product->id])) {
-                                $category = Category::find($product->category)->title;
-                                $measure = Measure::find($component->measure_id)->title;
-                                $result[$product->category][$product->id] =
-                                    [
-                                        'image' => $product->image,
-                                        'name' => $product->name,
-                                        'price' => $product->price,
-                                        'category' => $category,
-                                        'qty' => 0,
-                                        'measure' => $measure,
-                                        'total' => 0,
-                                    ];
-                            }
-                            $qty = $festiveRecipe->qty * $component->qty;
-                            $result[$product->category][$product->id]['qty'] += $qty;
-                            $total = $product->price * $qty;
-                            $result[$product->category][$product->id]['total'] += $total;
+                        $result = $this->recipeService->getProductsByIdAndQty(
+                            $result,
+                            $festiveRecipe->recipe_id,
+                            $festiveRecipe->qty
+                        );
+                    }
+                    // save result in database
+                    foreach ($result as $item) {
+                        foreach ($item as $prodItem) {
+                            $prodItem['festive_id'] = $festiveId;
+                            $prodItem['user_id'] = $user->id;
+                            $festiveResult = new FestiveResult();
+                            $festiveResult->fill($prodItem);
+                            $festiveResult->save();
                         }
                     }
-                    foreach ($result as $categoryId => $item) {
-                            foreach ($item as $productId => $prodItem) {
-                                $prodItem['cat_url'] = '/category/'.$categoryId;
-                                $prodItem['product_url'] = '/product/'.$productId;
-                                $prodItem['festive_id'] = $festiveId;
-                                $prodItem['user_id'] = $user->id;
-                                $festiveResult= new FestiveResult();
-                                $festiveResult->fill($prodItem);
-                                $festiveResult->save();
-                            }
-                        }
-
+                    // save step in  database
                     $festive->step = 3;
                     $festive->save();
-                    return redirect("/festive/$festiveId#step-3")->with('success-3', 'Calculate products Successfully Saved');
+                    return redirect("/festive/$festiveId#step-3")->with(
+                        'success-3',
+                        'Calculate products Successfully Saved'
+                    );
                 }
             }
         }

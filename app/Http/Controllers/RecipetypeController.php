@@ -15,14 +15,16 @@ class RecipetypeController extends Controller
             $recipes = Recipe::all()->sortBy('name')->filter(function ($recipe) use ($type) {
                 return $recipe->type === $type;
             })->values();
+            $title =  __('admin.recipe_type_list_title');
             if (count($recipes)>0){
-                return view('recipetype',['recipes'=>$recipes]);
+                $title.= " ". __($recipes[0]->getRecipeType());
+                return view('recipegroup',['title'=>$title,'recipes'=>$recipes]);
             }else{
-                return view('recipetype',['type'=>Recipetype::find($type)]);
+                $type = Recipetype::find($type);
+                $title.= " ". __($type->title);
+                return view('recipegroup',[ 'title'=>$title,'recipes'=>null]);
             }
         }
-
         return redirect(route('404'));
-
     }
 }

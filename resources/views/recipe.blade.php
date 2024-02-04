@@ -50,4 +50,14 @@
             </div>
         </div>
     </div>
+    @auth
+        @if(isset($recipe->id))
+            <form id="add-to-cart" method="post" action="{{ route('add_to_cart_form') }}" novalidate>
+            @csrf
+            <input type="hidden" name="recipe_id" value="{{$recipe->id}}"/>
+            <button class="mt-3 btn btn-primary px-5" type="submit">{{__('admin.add-to-cart')}}</button>
+        </form>
+        @endif
+    @endauth
 @endsection
+
