@@ -1389,14 +1389,20 @@ function () {
         return __spreadArrays(sourceArray);
       }
     });
-    var invalidConfigOptions = utils_1.diff(this.config, constants_1.DEFAULT_CONFIG);
 
+    console.log(this.config)
+    console.log(constants_1.DEFAULT_CONFIG)
+
+    var invalidConfigOptions = utils_1.diff(this.config, constants_1.DEFAULT_CONFIG);
+      console.log(invalidConfigOptions)
     if (invalidConfigOptions.length) {
       console.warn('Unknown config option(s) passed', invalidConfigOptions.join(', '));
     }
-
+    console.log(element)
+    console.log(typeof element)
     var passedElement = typeof element === 'string' ? document.querySelector(element) : element;
-
+      console.log(passedElement)
+      console.log(typeof passedElement)
     if (!(passedElement instanceof HTMLInputElement || passedElement instanceof HTMLSelectElement)) {
       throw TypeError('Expected one of the following types text|select-one|select-multiple');
     }

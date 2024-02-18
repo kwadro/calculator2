@@ -36,3 +36,7 @@ Route::post('/productcart', [App\Http\Controllers\ProductCartController::class, 
 
 Route::get('/product/{product_id}', [App\Http\Controllers\ProductController::class, 'index'])->name('productindex');
 Route::get('/category/{category_id}', [App\Http\Controllers\CategoryController::class, 'index'])->name('categoryindex');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
